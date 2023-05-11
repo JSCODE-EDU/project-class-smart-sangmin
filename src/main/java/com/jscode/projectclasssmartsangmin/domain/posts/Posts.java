@@ -5,24 +5,21 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Getter
 @Entity
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Posts {
     @Id
-    @GeneratedValue
-    Long id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY) // IDENTITY: 영속 상태가 되려면 식별자는 필수
+    private Long id;
 
     @Column(nullable = false)
-    String title;
+    private String title;
 
     @Column(columnDefinition = "TEXT")
-    String content;
+    private String content;
 
     @Builder
     public Posts(Long id, String title, String content) {
