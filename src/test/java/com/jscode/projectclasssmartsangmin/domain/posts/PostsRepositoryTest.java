@@ -1,5 +1,6 @@
 package com.jscode.projectclasssmartsangmin.domain.posts;
 
+import com.jscode.projectclasssmartsangmin.exception.PostsNotFoundException;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,5 +37,21 @@ class PostsRepositoryTest {
         Posts posts = all.get(0);
         assertThat(posts.getTitle()).isEqualTo("제목");
         assertThat(posts.getContent()).isEqualTo("내용");
+    }
+
+    @Test
+    public void 특정게시글아이디로조회기능() {
+        // given
+        Posts posts = postsRepository.save(Posts.builder()
+                .title("제목")
+                .content("내용")
+                .build());
+
+        // when
+        Posts byId = postsRepository.findById(posts.getId()).orElseThrow(PostsNotFoundException::new);
+
+        // then
+        assertThat(byId.getTitle()).isEqualTo("제목");
+        assertThat(byId.getContent()).isEqualTo("내용");
     }
 }
