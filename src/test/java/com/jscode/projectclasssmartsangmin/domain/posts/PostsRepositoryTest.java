@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -89,5 +90,22 @@ class PostsRepositoryTest {
         assertThatThrownBy(() ->
                 postsRepository.findById(posts.getId()).orElseThrow(PostsNotFoundException::new))
                 .isInstanceOf(PostsNotFoundException.class);
+    }
+
+    @Test
+    public void BaseTimeEntity등록() {
+        // given
+        LocalDateTime now = LocalDateTime.now();
+        Posts posts = postsRepository.save(Posts.builder()
+                .title("제목")
+                .content("내용")
+                .build());
+        // when
+        Posts found = postsRepository.findById(posts.getId()).orElseThrow(PostsNotFoundException::new);
+
+        // then
+        Posts target = postsRepository.findById(found.getId()).orElseThrow(PostsNotFoundException::new);
+        assertThat(target.getCreatedDate()).isAfter(now);
+        assertThat(target.getModifiedDate()).isAfter(now);
     }
 }
