@@ -21,7 +21,6 @@ class PostsRepositoryTest {
     public void cleanAll() {
         postsRepository.deleteAll();
     }
-
     @Test
     public void 게시글생성및조회() {
         // given
