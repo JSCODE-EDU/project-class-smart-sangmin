@@ -1,6 +1,5 @@
 package com.jscode.projectclasssmartsangmin.service;
 
-import com.jscode.projectclasssmartsangmin.domain.posts.PostsRepository;
 import com.jscode.projectclasssmartsangmin.dto.PostsSaveRequestDto;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -12,10 +11,10 @@ import org.springframework.web.bind.annotation.RestController;
 @AllArgsConstructor
 @RestController
 public class PostsController {
-    private PostsRepository postsRepository;
+    private PostsService postsService;
 
     @PostMapping("/")
-    public void savePosts(@RequestBody PostsSaveRequestDto dto) {
-        postsRepository.save(dto.toEntity());
+    public Long savePosts(@RequestBody PostsSaveRequestDto dto) {
+        return postsService.save(dto);
     }
 }
