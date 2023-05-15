@@ -1,7 +1,6 @@
 package com.jscode.projectclasssmartsangmin.domain.posts;
 
 import com.jscode.projectclasssmartsangmin.exception.PostsNotFoundException;
-import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
@@ -18,11 +17,6 @@ import static org.assertj.core.api.Assertions.assertThatThrownBy;
 class PostsRepositoryTest {
     @Autowired
     private PostsRepository postsRepository;
-
-    @AfterEach
-    public void cleanAll() {
-        postsRepository.deleteAll();
-    }
 
     @Test
     public void 게시글생성및조회() {
