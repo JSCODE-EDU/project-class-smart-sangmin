@@ -31,8 +31,13 @@ public class PostsService {
     }
 
     @Transactional
-    public void update(Long id, String title,  String content) {
+    public void update(Long id, String title, String content) {
         Posts posts = postsRepository.findById(id).orElseThrow(PostsNotFoundException::new);
         posts.update(title, content);
+    }
+
+    @Transactional
+    public void delete(Long id) {
+        postsRepository.deleteById(id);
     }
 }
