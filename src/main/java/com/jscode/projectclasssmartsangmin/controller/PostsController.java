@@ -1,11 +1,11 @@
 package com.jscode.projectclasssmartsangmin.service;
 
+import com.jscode.projectclasssmartsangmin.domain.posts.Posts;
 import com.jscode.projectclasssmartsangmin.dto.PostsSaveRequestDto;
 import lombok.AllArgsConstructor;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RequestMapping("/api/v1/posts")
 @AllArgsConstructor
@@ -16,5 +16,25 @@ public class PostsController {
     @PostMapping("/")
     public Long savePosts(@RequestBody PostsSaveRequestDto dto) {
         return postsService.save(dto);
+    }
+
+    @GetMapping("/all")
+    public List<Posts> findAll() {
+        return postsService.findAll();
+    }
+
+    @GetMapping("/{id}")
+    public Posts findById(@PathVariable Long id) {
+        return postsService.findById(id);
+    }
+
+    @PutMapping("/{id}")
+    public void update(@PathVariable Long id, @RequestBody String title, String content) {
+        postsService.update(id, title, content);
+    }
+
+    @DeleteMapping("/{id}")
+    public void delete(@PathVariable Long id) {
+        postsService.delete(id);
     }
 }
