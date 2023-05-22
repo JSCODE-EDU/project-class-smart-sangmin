@@ -3,6 +3,7 @@ package com.jscode.projectclasssmartsangmin.service;
 import com.jscode.projectclasssmartsangmin.domain.posts.Posts;
 import com.jscode.projectclasssmartsangmin.domain.posts.PostsRepository;
 import com.jscode.projectclasssmartsangmin.dto.PostsSaveRequestDto;
+import com.jscode.projectclasssmartsangmin.dto.PostsUpdateRequestDto;
 import com.jscode.projectclasssmartsangmin.exception.PostsNotFoundException;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -110,7 +111,11 @@ class PostsServiceTest {
         // when
         String newTitle = "변경된 제목";
         String newContent = "변경된 내용";
-        postsService.update(savedId, newTitle, newContent);
+        PostsUpdateRequestDto updateRequestDto = PostsUpdateRequestDto.builder()
+                .title(newTitle)
+                .content(newContent)
+                .build();
+        postsService.update(savedId, updateRequestDto);
 
         // then
         Posts posts = postsService.findById(savedId);
@@ -120,7 +125,7 @@ class PostsServiceTest {
 
     @Test
     @Transactional
-    void 게시글삭제()     {
+    void 게시글삭제() {
         // given
         PostsSaveRequestDto dto = PostsSaveRequestDto.builder()
                 .title("제목")
