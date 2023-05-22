@@ -3,6 +3,7 @@ package com.jscode.projectclasssmartsangmin.service;
 import com.jscode.projectclasssmartsangmin.domain.posts.Posts;
 import com.jscode.projectclasssmartsangmin.domain.posts.PostsRepository;
 import com.jscode.projectclasssmartsangmin.dto.PostsSaveRequestDto;
+import com.jscode.projectclasssmartsangmin.dto.PostsUpdateRequestDto;
 import com.jscode.projectclasssmartsangmin.exception.PostsNotFoundException;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -31,9 +32,9 @@ public class PostsService {
     }
 
     @Transactional
-    public void update(Long id, String title, String content) {
+    public void update(Long id, PostsUpdateRequestDto dto) {
         Posts posts = postsRepository.findById(id).orElseThrow(PostsNotFoundException::new);
-        posts.update(title, content);
+        posts.update(dto.getTitle(), dto.getContent());
     }
 
     @Transactional

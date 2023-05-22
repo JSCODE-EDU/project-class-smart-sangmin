@@ -2,6 +2,7 @@ package com.jscode.projectclasssmartsangmin.service;
 
 import com.jscode.projectclasssmartsangmin.domain.posts.Posts;
 import com.jscode.projectclasssmartsangmin.dto.PostsSaveRequestDto;
+import com.jscode.projectclasssmartsangmin.dto.PostsUpdateRequestDto;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
@@ -29,8 +30,8 @@ public class PostsController {
     }
 
     @PutMapping("/{id}")
-    public void update(@PathVariable Long id, @RequestBody String title, String content) {
-        postsService.update(id, title, content);
+    public void update(@PathVariable Long id, @RequestBody PostsUpdateRequestDto dto) {
+        postsService.update(id, dto);
     }
 
     @DeleteMapping("/{id}")
